@@ -22,27 +22,21 @@ public class OrchestratorController {
     @Autowired private DistributionCenterRepository dcRepository;
     @Autowired private GroqService groqService;
 
-    // 1. Show the Orchestrator Dashboard
     @GetMapping("/supply-chain-orchestrator")
     public String showOrchestrator() {
         return "orchestrator";
     }
 
-    // 2. Run the Simulation
     @PostMapping("/simulate-scenario")
     public String simulateScenario(@RequestParam String scenario, Model model) {
-        // Fetch ALL data to give AI full context
         List<Product> products = productRepository.findAll();
         List<DistributionCenter> dcs = dcRepository.findAll();
 
-        // Convert lists to String summaries for the AI
         String prodString = products.stream().map(p -> p.getTitle() + " (Stock: " + p.getStockQuantity() + ")").toList().toString();
         String dcString = dcs.stream().map(d -> d.getName() + " (Items: " + d.getItems() + ")").toList().toString();
 
-        // Ask AI for the Strategy
         String analysis = groqService.analyzeSupplyChainEvent(scenario, prodString, dcString);
 
-        // Convert Markdown formatting to HTML if necessary (Simple cleanup)
         analysis = analysis.replace("```html", "").replace("```", "");
 
         model.addAttribute("scenario", scenario);

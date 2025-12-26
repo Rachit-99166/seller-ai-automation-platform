@@ -14,11 +14,11 @@ public class Product {
     private String description;
     private String category;
     private double price;
-    private double costPrice; // For Dynamic Pricing feature
-    private int stockQuantity; // For Inventory feature
-    private String aiQualityScore; // Feature: QA Score
-    private Double suggestedPrice;   // The specific amount (e.g., 349.99)
-private String alertMessage;     // "Rival undercut you" OR "Price too low"
-private String alertType;
-private String distributionCenter;
+    private double costPrice; 
+    private int stockQuantity; 
+    private String aiQualityScore; 
+    private Double suggestedPrice;   
+    private String alertMessage;    
+    private String alertType;
+    private String distributionCenter;
 }

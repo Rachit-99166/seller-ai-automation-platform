@@ -16,10 +16,8 @@ public class DistributionCenter {
     private String name;           
     private String address;        
     private String closingTime;    
-    
-    // --- THE FIX: Change these to Lists ---
-    private List<String> closingDays;    // Was String, now List
-    private List<String> carriers;       // Was String, now List
+    private List<String> closingDays;   
+    private List<String> carriers;      
     private List<String> items;    
 
     public DistributionCenter() {}

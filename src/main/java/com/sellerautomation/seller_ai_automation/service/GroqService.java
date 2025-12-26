@@ -30,17 +30,14 @@ public class GroqService {
         headers.setBearerAuth(apiKey);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Concise Body Creation
         Map<String, Object> body = Map.of(
             "model", model,
             "temperature", 0.5,
             "messages", List.of(Map.of("role", "user", "content", prompt))
         );
 
-        // Execute Request
         Map response = restTemplate.postForObject(apiUrl, new HttpEntity<>(body, headers), Map.class);
 
-        // Extract Response: choices[0] -> message -> content
         List<Map> choices = (List<Map>) response.get("choices");
         Map message = (Map) choices.get(0).get("message");
         return (String) message.get("content");
@@ -50,7 +47,6 @@ public class GroqService {
     }
 }
 
-    // FEATURE 1: COMMAND INTERFACE PARSER
     public String parseUserCommand(String commandText) {
         String prompt = "You are an API Command Parser. Convert this user text: '" + commandText + "' " +
                 "into a JSON object with keys: 'action', 'targetId', 'payload', 'numericValue'. " +
@@ -63,7 +59,6 @@ public class GroqService {
         return callGroqAi(prompt);
     }
 
-    // FEATURE 2: PRODUCT PARSING
     public String enrichProductData(String rawText) {
         String prompt = "Convert this raw product info: '" + rawText + "' " +
                 "into a JSON object with keys: 'title', 'description', 'category'. " +
@@ -71,15 +66,12 @@ public class GroqService {
         return callGroqAi(prompt);
     }
 
-    // FEATURE 3: INVENTORY RESTOCK EMAIL
     public String generateRestockEmail(String productName, int currentStock) {
         String prompt = "Write a short, professional email to a supplier ordering more '" + productName + "'. " +
                 "Current stock is critically low at " + currentStock + " units. Request urgent delivery.";
         return callGroqAi(prompt);
     }
 
-    // FEATURE 4: QUALITY SCORE
-    // FEATURE 4: QA SCORE (UPDATED to check Price, Stock, & Title)
     public String auditProductQuality(Product p) {
         String prompt = String.format(
             "Audit this e-commerce listing:\n" +
@@ -95,33 +87,26 @@ public class GroqService {
             p.getTitle(), p.getDescription(), p.getPrice(), p.getStockQuantity()
         );
 
-        // We ask for a very short response to fit in the table column
         return callGroqAi(prompt + " Keep advice under 15 words.");
     }
 
-    // FEATURE 5: DYNAMIC PRICING
     public String suggestPrice(double cost, String category) {
         String prompt = "The product costs $" + cost + " to make and is in category '" + category + "'. " +
                 "Suggest a profitable selling price ending in .99. Return ONLY the number (e.g. 29.99).";
         return callGroqAi(prompt);
     }
 
-    // FEATURE 6: SALES INSIGHTS
-    // FEATURE 6: REAL-TIME MARKET ANALYSIS (UPDATED)
-    // We now pass the ACTUAL list of products, not a fake string
     public String analyzeMarketTrends(List<Product> products) {
         if (products.isEmpty()) {
             return "No products found. Add items to generate AI market insights.";
         }
 
-        // Convert product list to a simple string for the AI to read
         StringBuilder inventoryData = new StringBuilder();
         for (Product p : products) {
             inventoryData.append(String.format("- Item: %s | Category: %s | Price: $%.2f | Stock: %d\n", 
                                    p.getTitle(), p.getCategory(), p.getPrice(), p.getStockQuantity()));
         }
 
-        // The Smart Prompt
         String prompt = "Act as a Senior Market Analyst. I have a shop with this inventory:\n" +
                 inventoryData.toString() +
                 "\n\nTask:\n" +
@@ -132,7 +117,7 @@ public class GroqService {
 
         return callGroqAi(prompt);
     }
-    // FEATURE: AI SELLER VERIFICATION
+
     public String verifySellerCompany(String companyName) {
         String prompt = String.format(
             "Act as a Corporate Risk Analyst. A seller claims to represent the company '%s'.\n" +
@@ -146,9 +131,9 @@ public class GroqService {
             companyName
         );
 
-        return callGroqAi(prompt); // Returns "APPROVED" or "REJECTED: ..."
+        return callGroqAi(prompt);
     }
-    // FEATURE: BRAND CONSISTENCY CHECK
+    
     public String verifyProductAlignment(String companyName, String productCommand) {
         String prompt = String.format(
             "Act as a Brand Manager for the company '%s'.\n" +
@@ -163,7 +148,7 @@ public class GroqService {
 
         return callGroqAi(prompt).trim();
     }
-    // FEATURE: DC COMMAND PARSER
+    
     public String parseDcCommandToJson(String commandText) {
         String prompt = String.format(
             "Act as an API. Convert this command into a JSON Object for a Logistics DB.\n" +
@@ -192,8 +177,7 @@ public class GroqService {
 
         return callGroqAi(prompt);
     }
-    // FEATURE: SUPPLY CHAIN ORCHESTRATOR
-    // FEATURE: SUPPLY CHAIN ORCHESTRATOR (FINAL HYBRID VERSION)
+    
     public String analyzeSupplyChainEvent(String event, String productData, String dcData) {
         String prompt = String.format(
             "Act as a Chief Logistics Officer. Analyze the event '%s' based on my real-time Supply Chain Data.\n" +
