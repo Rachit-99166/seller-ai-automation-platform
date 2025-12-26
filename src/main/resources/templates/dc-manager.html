@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DC Command Center</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>🏭 Distribution Command Center</h2>
+        <a href="/" class="btn btn-outline-secondary">Back to Dashboard</a>
+    </div>
+
+    <div th:if="${message}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${message}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error:</strong> <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="card shadow-sm mb-4 border-primary">
+        <div class="card-body">
+            <h5 class="text-primary">🤖 Build Network with AI</h5>
+            <form action="/create-dc" method="post" class="d-flex gap-2">
+                <input type="text" name="commandText" class="form-control form-control-lg" 
+                       placeholder="e.g. Create DC in Miami with Fedex carrying PS5 and Nike Shoes..." required>
+                <button type="submit" class="btn btn-primary btn-lg">Execute</button>
+            </form>
+        </div>
+    </div>
+
+    <form action="/distribution-centers" method="get" class="mb-4">
+        <div class="input-group">
+            <span class="input-group-text bg-white">🔍</span>
+            <input type="text" name="query" class="form-control" placeholder="Filter by Carrier (FedEx), Item (PS5), or Location...">
+            <button class="btn btn-dark" type="submit">Filter Grid</button>
+            <a href="/distribution-centers" class="btn btn-outline-secondary">Clear</a>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-4 mb-4" th:each="dc : ${dcs}">
+            <div class="card h-100 shadow-sm hover-shadow">
+                
+                <div class="card-header fw-bold bg-dark text-white d-flex justify-content-between">
+                    <span th:text="${dc.name}">DC Name</span>
+                    <a th:href="@{/delete-dc/{id}(id=${dc.id})}" class="text-white text-decoration-none">✕</a>
+                </div> <div class="card-body">
+                    <p class="mb-1">📍 <strong th:text="${dc.address}"></strong></p>
+                    
+                    <p class="mb-1">
+                        ⏰ Close: <span th:text="${dc.closingTime}"></span> 
+                        <span class="text-danger" th:if="${dc.closingDays != null}">
+                            (<span th:text="${#strings.listJoin(dc.closingDays, ', ')}"></span>)
+                        </span>
+                    </p>
+
+                    <p class="mb-2">
+                        🚚 <strong>Carrier:</strong> 
+                        <span th:each="carrier : ${dc.carriers}" class="badge bg-info text-dark me-1" th:text="${carrier}"></span>
+                    </p>
+                    
+                    <div class="border-top pt-2">
+                        <small class="text-muted fw-bold">Available Inventory:</small>
+                        <div class="d-flex flex-wrap gap-1 mt-1">
+                            <span th:each="item : ${dc.items}" class="badge bg-secondary" th:text="${item}"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-footer bg-white border-top-0">
+                    <a th:href="@{/edit-dc/{id}(id=${dc.id})}" class="btn btn-sm btn-outline-primary w-100">✏️ Modify Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${dcs.empty}" class="col-12 text-center py-5">
+            <h4 class="text-muted">No Facilities Found.</h4>
+            <p>Try searching for something else or ask AI to build a new one.</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

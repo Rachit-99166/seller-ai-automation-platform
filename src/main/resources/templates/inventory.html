@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Inventory</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+    <h2>📦 Smart Inventory</h2>
+    <a href="/" class="btn btn-secondary mb-3">Back</a>
+
+    <div th:if="${emailDraft}" class="card bg-light p-3 mb-3 border-warning">
+        <h5>📝 AI Generated Supplier Email:</h5>
+        <pre th:text="${emailDraft}"></pre>
+    </div>
+
+    <table class="table">
+        <thead><tr><th>Item</th><th>Stock</th><th>Action</th></tr></thead>
+        <tbody>
+            <tr th:each="p : ${products}" th:classappend="${p.stockQuantity < 10} ? 'table-danger' : ''">
+                <td th:text="${p.title}"></td>
+                <td th:text="${p.stockQuantity}"></td>
+                <td>
+                    <form th:action="@{/generate-restock/{id}(id=${p.id})}" method="post">
+                        <button type="submit" class="btn btn-sm btn-warning">Draft Restock Email</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

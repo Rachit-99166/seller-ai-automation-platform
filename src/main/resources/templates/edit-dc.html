@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Distribution Center</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">✏️ Edit Distribution Center</h4>
+        </div>
+        <div class="card-body">
+            <form action="/update-dc" method="post">
+                <input type="hidden" name="id" th:value="${dc.id}">
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Center Name</label>
+                    <input type="text" name="name" class="form-control" th:value="${dc.name}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Address</label>
+                    <input type="text" name="address" class="form-control" th:value="${dc.address}" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Closing Time</label>
+                        <input type="text" name="closingTime" class="form-control" th:value="${dc.closingTime}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Closing Days</label>
+                        <input type="text" name="closingDaysStr" class="form-control" 
+                               th:value="${dc.closingDays != null} ? ${#strings.listJoin(dc.closingDays, ', ')} : ''">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Carriers (Comma separated)</label>
+                    <input type="text" name="carriersStr" class="form-control" 
+                           th:value="${dc.carriers != null} ? ${#strings.listJoin(dc.carriers, ', ')} : ''">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Inventory Items (Comma separated)</label>
+                    <textarea name="itemsStr" class="form-control" rows="3"
+                              th:text="${dc.items != null} ? ${#strings.listJoin(dc.items, ', ')} : ''"></textarea>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="/distribution-centers" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-success fw-bold px-4">✅ Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

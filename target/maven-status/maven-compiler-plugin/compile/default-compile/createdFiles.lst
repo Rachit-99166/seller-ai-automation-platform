@@ -1,0 +1,6 @@
+com\sellerautomation\seller_ai_automation\SellerAiAutomationApplication.class
+com\sellerautomation\seller_ai_automation\model\AiCommand.class
+com\sellerautomation\seller_ai_automation\repository\ProductRepository.class
+com\sellerautomation\seller_ai_automation\model\Product.class
+com\sellerautomation\seller_ai_automation\service\GroqService.class
+com\sellerautomation\seller_ai_automation\controller\SellerController.class
