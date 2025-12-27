@@ -37,7 +37,7 @@ Start Database: Run docker-compose up --build -d mongo to launch MongoDB.
 
 Launch App: Run mvn spring-boot:run or use your IDE.
 
-Access: Open http://localhost:8080.
+Access: Open http://localhost:8080/login.
 
 Stop Database: docker compose down -v to stop docker.
 
@@ -81,6 +81,8 @@ Aligns with AI-first industry direction
 
 
 ## Screenshot
-![Image](https://github.com/user-attachments/assets/fcb55abd-46a0-448e-8f54-63b75eddc518)
+![Image](https://github.com/user-attachments/assets/d2f277f2-57e5-47ff-b42c-cd27af5499cc)
 
-![Image](https://github.com/user-attachments/assets/061c1d57-1b92-4cf4-8319-3ced9f6d88e7)
+![Image](https://github.com/user-attachments/assets/85caab76-06cb-4137-9b8a-19c200865a36)
+
+![Image](https://github.com/user-attachments/assets/a3aa4b1c-2854-4c91-8fa9-843204525586)
