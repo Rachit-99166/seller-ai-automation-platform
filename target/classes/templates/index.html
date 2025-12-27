@@ -30,7 +30,7 @@
             <a href="/logout" class="btn btn-sm btn-outline-light ms-2">Logout</a>
         </div>
 
-        <h1>🚀 AI Seller Automation</h1>
+        <h1>AI Seller Automation</h1>
         <p class="opacity-75">
             Authorized Access: <span class="fw-bold" th:text="${companyName}"></span>
         </p>
@@ -40,7 +40,7 @@
         
         <div class="card shadow-lg mb-4">
             <div class="card-body bg-dark rounded text-white p-4">
-                <h4 class="mb-3">🎙️ AI Command Center</h4>
+                <h4 class="mb-3">AI Command Center</h4>
                 <form action="/execute-command" method="post">
                     <div class="input-group input-group-lg">
                         <span class="input-group-text bg-secondary text-white border-0">Cmd >_</span>
@@ -59,7 +59,7 @@
         <div th:if="${error}" class="alert alert-danger text-center" th:text="${error}"></div>
 
         <div class="card mb-4 shadow-sm">
-            <div class="card-header bg-white fw-bold">📊 Weekly AI Performance Insight</div>
+            <div class="card-header bg-white fw-bold">Weekly AI Performance Insight</div>
             <div class="card-body ai-insight-box">
                 <p class="card-text mb-0" th:text="${insights}"></p>
             </div>
@@ -89,7 +89,7 @@
         </div>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>📦 Product Inventory</h3>
+            <h3>Product Inventory</h3>
             <a href="/inventory" class="btn btn-outline-dark">Go to Inventory Monitor &rarr;</a>
         </div>
 
