@@ -1,11 +1,6 @@
 
 # AI-Driven 3P Seller Automation Platform
 
-
-
-
-
-
 # Overview
 
 This project is an AI-powered Seller Automation Platform built with Spring Boot, MongoDB, and Groq LLMs.
@@ -24,46 +19,27 @@ Automated product audits
 
 ## Skills
 
-Spring Boot (MVC, REST, Dependency Injection)
+Backend: Java 21, Spring Boot 3.x, Spring Data MongoDB.
 
-MongoDB with Spring Data
+Intelligence: Groq Cloud API (Llama 3 70B), Prompt Engineering, Automated Reasoning.
 
-AI / LLM Integration (Groq / OpenAI-compatible APIs)
+DevOps: Docker, Docker Compose, MongoDB Compass.
 
-Prompt Engineering
-
-Docker & Containerized Databases
-
-Thymeleaf UI
-
-Clean Architecture & Refactoring
-
-Domain-driven design concepts
+Frontend: Thymeleaf, Bootstrap 5, Responsive UI Design.
 
 
 ## How To Run
-Prerequisites
+Clone the Repo: git clone <url>
 
-Java 21
+Environment Setup: Add your Groq API Key to src/main/resources/application.properties.
 
-Maven
+Start Database: Run docker-compose up --build -d mongo to launch MongoDB.
 
-Docker
+Launch App: Run mvn spring-boot:run or use your IDE.
 
-MongoDB (via Docker)
+Access: Open http://localhost:8080/login.
 
-Steps: 
-
-To start:
-docker compose up --build -d mongo, mvn spring-boot:run
-
-To stop:
-Ctrl+c to exit app running, docker compose down -v
-
-
-Visit:
-
-http://localhost:8080
+Stop Database: docker compose down -v to stop docker.
 
 
 ## Impact & Why This Matters Today
@@ -92,6 +68,7 @@ Supply chain intelligence systems
 
 AI-native SaaS products
 
+
 Why It Should Be Implemented:
 
 Reduces manual operations
@@ -104,4 +81,8 @@ Aligns with AI-first industry direction
 
 
 ## Screenshot
+![Image](https://github.com/user-attachments/assets/d2f277f2-57e5-47ff-b42c-cd27af5499cc)
 
+![Image](https://github.com/user-attachments/assets/85caab76-06cb-4137-9b8a-19c200865a36)
+
+![Image](https://github.com/user-attachments/assets/a3aa4b1c-2854-4c91-8fa9-843204525586)
